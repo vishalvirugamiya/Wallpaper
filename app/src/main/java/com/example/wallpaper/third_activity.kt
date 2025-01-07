@@ -6,8 +6,10 @@ import android.app.WallpaperManager
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.provider.MediaStore
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -115,6 +117,7 @@ class third_activity : AppCompatActivity() {
                         bottonSTdialog.dismiss()
                         Toast.makeText(this@third_activity, "Set Wallpaper ", Toast.LENGTH_SHORT)
                             .show()
+                        progress.dismiss()
                     }
 
                 } catch (e: IOException) {
@@ -178,7 +181,6 @@ class third_activity : AppCompatActivity() {
 
     private fun getimageTosher(b: Bitmap) {
 
-
         val progress = ProgressDialog(this)
         progress.setTitle("Loading")
         progress.setMessage("Wait while loading...")
@@ -190,17 +192,17 @@ class third_activity : AppCompatActivity() {
             share.setType("image/jpeg")
             val bytes = ByteArrayOutputStream()
             b.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-            startActivity(Intent.createChooser(share, "Shere"))
+
 
             runOnUiThread {
                 progress.dismiss()
             }
+
+            val path = MediaStore.Images.Media.insertImage(contentResolver, b, "Title", null)
+            val imageUri = Uri.parse(path)
+            share.putExtra(Intent.EXTRA_STREAM, imageUri)
+            startActivity(share)
         }
-
-        //val path = MediaStore.Images.Media.insertImage(contentResolver, b, "Title", null)
-        //val imageUri = Uri.parse(path)
-        //share.putExtra(Intent.EXTRA_STREAM, imageUri)
-
     }
 
 }
