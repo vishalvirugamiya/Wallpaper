@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:background="@color/white"
+        android:background="#22673AB7"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -76,8 +76,6 @@
                android:text="Share wallpaper"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"/>
-
-
 
        </LinearLayout>
 
